@@ -17,3 +17,5 @@ pip install gpt4free==0.0.2.6
 - `DC_config.json`:
   - DC_key :<br>
   ![image](https://github.com/LilyRasPi0502/G4F_Discord_Bot/assets/115215163/45a4f069-73dc-48f1-8f73-979c81f67f77)
+  - bot_ID :<br>
+  ![image](https://github.com/LilyRasPi0502/G4F_Discord_Bot/assets/115215163/99d63831-3b17-452f-838c-8c3088d8a33c)
