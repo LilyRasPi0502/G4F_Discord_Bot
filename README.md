@@ -13,4 +13,4 @@ pip install gpt4free==0.0.2.6
 ### 以下檔案都在./data/json/目錄下:
 
 - `CharacterSet.json`:
-- - 設定機器人的角色設定
+ - 設定機器人的角色設定
