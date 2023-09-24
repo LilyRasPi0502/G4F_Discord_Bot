@@ -3,5 +3,8 @@
 
 # 安裝方法
 ```cmd
+python -m pip install -U py-cord
+
 pip install gpt4free==0.0.2.6
+
 ```
