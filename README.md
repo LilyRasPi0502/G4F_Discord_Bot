@@ -8,6 +8,8 @@
 python -m pip install -U py-cord
 
 pip install gpt4free==0.0.2.6
+
+pip install nest-asyncio
 ```
 如需在Replit上執行則:
 `pip install Flask`
