@@ -40,3 +40,7 @@ pip install nest-asyncio
   - 執行Launcher.py
 - Mac:
   - 等您贊助我就可以開發ㄌ
+
+# 更新日誌
+- 20230929 修改`data/bot.py`與`data/Fnc/bot.py`
+  - 修改GPT函數之引數資料型態
