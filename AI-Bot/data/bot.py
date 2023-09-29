@@ -125,13 +125,56 @@ class MyBot(commands.Bot):
 			msg = await ctx.reply(f"Restart{self.user}")
 			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author.display_name}: {msg.content}")
 		else:								#連接GPT Free
-
+			
 			async with ctx.channel.typing():
 				f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
 				Chara = json.load(f)
+
+				ctxList = []
+
+				#判斷有無回覆訊息
+				if ctx.reference is not None:
+					#獲取被回覆的訊息
+					ctxRe = await ctx.channel.fetch_message(ctx.reference.message_id)
+					ctxList.append(ctxRe)
+					while ctxRe.reference is not None:
+						ctxRe = await ctxRe.channel.fetch_message(ctxRe.reference.message_id)
+						ctxList.append(ctxRe)
+
 				text, usercontant = await self.ChangeText(ctx, f"{Chara['Character']}")
+
+				GPTmsg = [f"{usercontant}"]
+				GPTrole = ["user"]
+
+				for ctxOut in ctxList:
+					if ctxOut.author == self.user:
+						GPTrole.append("assistant")
+						Reaction = []
+						ctxRe = await ctxOut.channel.fetch_message(ctxOut.reference.message_id)
+						for Reactions in ctxRe.reactions:
+							Reaction.append(Reactions.emoji)
+						GPTmsg.append(f"{ctxOut.guild}.{ctxOut.channel}.{ctxOut.author}:{ctxOut.content}<Reactions>{str(Reaction)}</Reactions>")
+					else:
+						GPTrole.append("user")
+						GPTmsg.append(f"{ctxOut.guild}.{ctxOut.channel}.{ctxOut.author}:{ctxOut.content}")
+
+				GPTmsg.append(text)
+				GPTrole.append("user")
+				GPTmsg.append("## 安安♡~。<Reactions>[None]</Reactions>")
+				GPTrole.append("assistant")
+				
+				GPTmsg.append("~~嗨嗨~~")
+				GPTrole.append("user")
+				GPTmsg.append("> # 我了解了\n> 這樣就可以使用Markdown語法做回覆了呢！\n<Reactions>[🆗]</Reactions>")
+				GPTrole.append("assistant")
+				GPTmsg.append("中文的話請用繁體中文做回覆,可以使用Markdown語法做一些特別回覆，不可以擅自猜測對方性別，不用復誦對方說的話，並且請你以角色的視角給予些許表情符號、emoji回應，不用每一則訊息都回應表情符號，格式化的回應如下<Reactions>[🤮,❌,❤,❓,⭕]</Reactions>,回應一定要使用Reactions的HTML標籤包覆，任何的表情符號、emoji都可以使用，數量沒有限定，如果沒有要做回應請給我<Reactions>[None]</Reactions>，如果有回應表情符號、emoji則不需要回應<Reactions>[None]</Reactions>")
+				GPTrole.append("user")
+				
+				GPTMessage = [{"role": GPTrole[i], "content": GPTmsg[i]} for i in range(len(GPTmsg))]
+				GPTMessage.reverse()
+				GPTMessage.append({"role": "user", "content": "請直接回答無須標註身分"})
 				Str = "0-0-0"
-				Str = await AI(text, usercontant)
+				Str = await GPT(GPTMessage)
 				while Str.find("0-0-0") != -1:
 					pass
 				await self.Reaction(ctx, Str)
@@ -146,8 +189,7 @@ class MyBot(commands.Bot):
 				except:
 					f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
 					text, usercontant = await self.ChangeText(ctx, ctx, f"{Chara['Err']}")
-					Str = "0-0-0"
-					Str = await AI(text, usercontant)
+					Str = "抱歉出了一些錯誤"
 					while Str.find("0-0-0") != -1:
 						pass
 					msg = await ctx.reply(Str)
