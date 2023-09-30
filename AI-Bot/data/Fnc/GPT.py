@@ -14,10 +14,7 @@ async def GPT(message):
 				messages=message
 			)
 		except:
-			response = g4f.ChatCompletion.create(
-				model="gpt-3.5-turbo",
-				messages=message
-			)
+			pass
 			
 	return response
 	
