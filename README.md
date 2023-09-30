@@ -44,5 +44,3 @@ pip install nest-asyncio
 # 更新日誌
 - 20230929 修改`data/bot.py`與`data/Fnc/GPT.py`
   - 修改GPT函數之引數資料型態
-- 20231001 修改`data/Fnc/GPT.py`
-  - 微調GPT函數之運行方式
