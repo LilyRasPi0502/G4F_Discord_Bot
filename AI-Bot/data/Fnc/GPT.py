@@ -14,7 +14,7 @@ async def GPT(message):
 				messages=message
 			)
 		except:
-			pass
+			response = ""
 			
 	return response
 	
