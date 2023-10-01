@@ -10,8 +10,9 @@ async def GPT(message):
 	while response == "":
 		try:
 			response = g4f.ChatCompletion.create(
-				model="gpt-3.5-turbo",
-				messages=message
+				model=g4f.models.gpt_4,
+				messages=message,
+				stream=True
 			)
 		except:
 			response = g4f.ChatCompletion.create(
