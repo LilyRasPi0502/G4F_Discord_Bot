@@ -7,7 +7,7 @@
 ```cmd
 python -m pip install -U py-cord
 
-pip install gpt4free==0.0.2.6
+pip install -U g4f
 
 pip install nest-asyncio
 ```
