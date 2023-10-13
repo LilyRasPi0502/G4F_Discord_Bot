@@ -31,6 +31,8 @@ class MyBot(commands.Bot):
 		self.message2 = f"正在使用身分: {self.user}({self.user.id})"
 		print(self.message1)
 		self.changeActivity.start()
+   
+		self.Reflash_CharacterAI.start()
 		self.add_commands()
 	
 	async def on_message(self, message):
